@@ -1,0 +1,59 @@
+<div class="row registration">
+  <div id="register-form-control" class="col-xs-12 form-area">
+    <h2 class="registration-header">Register</h2>
+    <form (ngSubmit)="register()" [formGroup]="form">
+        <fieldset>
+            <legend>Household:</legend>
+            <div class="help-block error familyname" *ngIf="familyname.touched && !familyname.valid">
+                <p *ngIf="familyname.errors.required">Family name is required</p>
+                <p *ngIf="familyname.errors.minlength">Family name has to be at least 5 characters</p>
+            </div>
+            <input id="register-familyname-textbox" type="text" class="form-control" placeholder="family name" [formControl]="text">
+        </fieldset>
+        <fieldset *ngFor="let itemrow of registerForm.controls.members.controls; let i=index">
+            <legend>Member #{{ i + 1 }}:</legend>
+            <div class="help-block error emailAdmin" *ngIf="emailAdmin.touched && !emailAdmin.valid">
+                <p *ngIf="emailAdmin.errors.required">Administrator Email is required</p>
+                <p *ngIf="emailAdmin.errors.minlength">Administrator Email has to be at least 5 characters</p>
+            </div>
+            <input id="register-emailAdmin-textbox" type="text" class="form-control" placeholder="Email" [formControl]="email">
+              
+            <div class="help-block error firstnameAdmin" *ngIf="firstnameAdmin.touched && !firstnameAdmin.valid">
+                <p *ngIf="firstnameAdmin.errors.required">Firstname is required</p>
+            </div>
+            <input id="register-firstnameAdmin-textbox" type="text" class="form-control" placeholder="Firstname" [formControl]="firstname">
+        
+            <div class="help-block error lastnameAdmin" *ngIf="lastnameAdmin.touched && !lastnameAdmin.valid">
+                <p *ngIf="lastnameAdmin.errors.required">Lastname is required</p>
+            </div>
+            <input id="register-lastnameAdmin-textbox" type="text" class="form-control" placeholder="Lastname" [formControl]="lastname">
+        
+        
+            <div class="help-block error passwordAdmin" *ngIf="passwordAdmin.touched && !passwordAdmin.valid">
+                <p *ngIf="passwordAdmin.errors.required">Password is required</p>
+                <p *ngIf="passwordAdmin.errors.minlength">Password has to be at least 8 characters</p>
+                <p *ngIf="passwordAdmin.errors.validatePassword">Password requires 1 number, 1 uppercase, and 1 lowercase character</p>
+            </div>
+            <input id="register-passwordAdmin-textbox" type="password" class="form-control" placeholder="Password" [formControl]="password">
+        
+            <div class="help-block error confirmpasswordAdmin" *ngIf="confirmpasswordAdmin.touched && !confirmpasswordAdmin.valid">
+                <p *ngIf="confirmpasswordAdmin.errors.required">Confirmation Password is required</p>
+                <p *ngIf="confirmpasswordAdmin.errors.minlength">Confirmation Password is incorrect</p>
+            </div>
+            <input id="register-confirmpasswordAdmin-textbox" type="password" class="form-control" placeholder="Confirm Password" [formControl]="confirmpassword">        
+            <button *ngIf="registerForm.controls.members.controls.length > 1" (click)="deleteMember(i)" class="btn btn-danger">Delete Button</button>
+          </fieldset>
+          <button type="button" (click)="addNewMember()" class="btn btn-primary">Add new member</button>
+      <div *ngIf="errorMessage">
+        <span class="help-block error">{{errorMessage}}</span>
+      </div>
+      <div *ngIf="successMessage">
+        <span class="help-block success">{{successMessage}}</span>
+      </div>
+      <button id="register-submit" type="submit" class="go-btn btn btn-lg btn-success btn-block" [disabled]="!form.valid">Register</button>
+    </form>
+    <div class="row">
+      <a [routerLink]="['../login']">Login</a>
+    </div>  
+  </div>
+</div>
