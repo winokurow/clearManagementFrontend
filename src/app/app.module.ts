@@ -12,17 +12,17 @@ import { App } from './app.component';
 import { AppState, InteralStateType } from './app.service';
 import { AuthGuard } from './shared/auth/auth.guard';
 import { RegistrationService } from './shared/services/registration/registration.service';
-import { UsersService } from './shared/services/users/users.service';
+import { TasksService } from './shared/services/tasks/tasks.service';
 import { AuthService } from './shared/auth/auth.service';
 import { Home } from './home/home';
 import { Register } from './register/register';
 import { Login } from './login/login';
-import { UserList } from './admin/user-list/user-list';
+import { TasksList } from './tasks/tasks-list/tasks-list';
 
 const APP_PROVIDERS = [
   AppState,
   RegistrationService,
-  UsersService,
+  TasksService,
   AuthService,
   AuthGuard
 ];
@@ -40,7 +40,7 @@ type StoreType = {
     Home,
     Register,
     Login,
-    UserList
+    TasksList
   ],
   imports: [
     BrowserModule,
@@ -54,6 +54,7 @@ type StoreType = {
     APP_PROVIDERS
   ]
 })
+
 export class AppModule {
   constructor(public appRef: ApplicationRef, public appState: AppState) {}
 
@@ -93,3 +94,4 @@ export class AppModule {
   }
 
 }
+

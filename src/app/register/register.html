@@ -1,61 +1,110 @@
-<div class="row registration">
-  <div id="register-form-control" class="col-xs-12 form-area">
-    <h2 class="registration-header">Register</h2>
-    <form (ngSubmit)="register()" [formGroup]="registerForm">
-        <fieldset>
-            <legend>Household:</legend>
-            <div class="help-block error householdname" *ngIf="householdname.touched && !householdname.valid">
-                <p *ngIf="householdname.errors.required">Household name is required</p>
-                <p *ngIf="householdname.errors.minlength">Household name has to be at least 5 characters</p>
-            </div>
-            <input id="register-householdname-textbox" type="text" class="form-control" placeholder="houshold name" formControlName="householdname">
-        </fieldset>
-        <div formArrayName="members">
-        <fieldset *ngFor="let member of registerForm.controls.members.controls; let i=index" formGroupName='{{i}}'>
-            <legend>Member {{ i + 1 }}:</legend>
-            <div class="help-block error email" *ngIf="email.touched && !email.valid">
-                <p *ngIf="email.errors.required">Email is required</p>
-                <p *ngIf="email.errors.minlength">Email has to be at least 5 characters</p>
-            </div>
-            <input id="register-email-textbox" type="text" class="form-control" placeholder="Email" formControlName="email">
-              
-            <div class="help-block error firstname" *ngIf="firstname.touched && !firstname.valid">
-                <p *ngIf="firstname.errors.required">Firstname is required</p>
-            </div>
-            <input id="register-firstname-textbox" type="text" class="form-control" placeholder="Firstname" formControlName="firstname">
-        
-            <div class="help-block error lastname" *ngIf="lastname.touched && !lastname.valid">
-                <p *ngIf="lastname.errors.required">Lastname is required</p>
-            </div>
-            <input id="register-lastname-textbox" type="text" class="form-control" placeholder="Lastname" formControlName="lastname">
-        
-        
-            <div class="help-block error password" *ngIf="password.touched && !password.valid">
-                <p *ngIf="password.errors.required">Password is required</p>
-                <p *ngIf="password.errors.minlength">Password has to be at least 8 characters</p>
-                <p *ngIf="password.errors.validatePassword">Password requires 1 number, 1 uppercase, and 1 lowercase character</p>
-            </div>
-            <input id="register-password-textbox" type="password" class="form-control" placeholder="Password" formControlName="password">
-        
-            <div class="help-block error confirmpassword" *ngIf="confirmpassword.touched && !confirmpassword.valid">
-                <p *ngIf="confirmpassword.errors.required">Confirmation Password is required</p>
-                <p *ngIf="confirmpassword.errors.minlength">Confirmation Password is incorrect</p>
-            </div>
-            <input id="register-confirmpassword-textbox" type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmpassword">        
-            <button *ngIf="registerForm.controls.members.controls.length > 1" (click)="deleteMember(i)" class="btn btn-danger">Delete Button</button>
-          </fieldset>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="margin-20">
+          <h4>Register</h4>
         </div>
-          <button type="button" (click)="addNewMember()" class="btn btn-primary">Add new member</button>
-      <div *ngIf="errorMessage">
-        <span class="help-block error">{{errorMessage}}</span>
-      </div>
-      <div *ngIf="successMessage">
-        <span class="help-block success">{{successMessage}}</span>
-      </div>
-      <button id="register-submit" type="submit" class="go-btn btn btn-lg btn-success btn-block" [disabled]="!registerForm.valid">Register</button>
-    </form>
-    <div class="row">
-      <a [routerLink]="['../login']">Login</a>
-    </div>  
+
+  <form [formGroup]="registerForm" novalidate (ngSubmit)="register()">
+            <!-- household name -->
+            <div class="form-group">
+                <label>Name</label>
+                <input formControlName="householdname" id="register-householdname-textbox" type="text" class="form-control">
+        
+                <div class="help-block error householdname" *ngIf="registerForm.controls.householdname.touched && !registerForm.controls.householdname.valid">
+                  <small *ngIf="registerForm.controls.householdname.errors.required" class="text-danger">Household name is required</small>
+                  <small *ngIf="registerForm.controls.householdname.errors.minlength" class="text-danger">Household name has to be at least 5 characters</small>
+                </div>
+              </div>
+              <div formArrayName="members">
+                  <div *ngFor="let member of registerForm.controls.members.controls; let i=index" class="panel panel-default">
+                      <div class="panel-heading">
+                          <span>Member {{i + 1}}</span>
+                          <span *ngIf="registerForm.get('members').controls.length > 1" (click)="deleteMember(i)" class="glyphicon glyphicon-remove pull-right">
+                          </span>
+                      </div>
+                      <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+                      <div class="panel-body" [formGroupName]="i">
+                          <div class="col-md-2">
+                              <dt><label>Email</label></dt>
+                              <dd><input type="text" formControlName="email"></dd>
+                              <div class="help-block error email" *ngIf="registerForm.controls.members.controls[i].controls.email.touched && !registerForm.controls.members.controls[i].controls.email.valid">
+                                <small *ngIf="registerForm.controls.members.controls[i].controls.email.errors.required" class="text-danger">Email is required</small>
+                                <small *ngIf="registerForm.controls.members.controls[i].controls.email.errors.minlength" class="text-danger">Email has to be at least 5 characters</small>
+                              </div>
+                          </div>
+                              <!--firstname-->
+                              <div class="col-md-2">
+                                <dt><label>Firstname</label></dt>
+                                <dd><input id="register-firstname-textbox_{{i}}" type="text" formControlName="firstname"></dd>
+                                <div class="help-block error firstname" *ngIf="registerForm.controls.members.controls[i].controls.firstname.touched && !registerForm.controls.members.controls[i].controls.firstname.valid">
+                                  <small *ngIf="registerForm.controls.members.controls[i].controls.firstname.errors.required" class="text-danger">Firstname is required</small>
+                                </div>
+                              </div>
+                              <!--lastname-->
+                              <div class="col-md-2">
+                                <dt><label>Lastname</label></dt>
+                                <dd><input id="register-lastname-textbox_{{i}}" type="text" formControlName="lastname"></dd>
+                                <div class="help-block error lastname" *ngIf="registerForm.controls.members.controls[i].controls.lastname.touched && !registerForm.controls.members.controls[i].controls.lastname.valid">
+                                  <small *ngIf="registerForm.controls.members.controls[i].controls.lastname.errors.required" class="text-danger">Lastname is required</small>
+                                </div>
+                              </div>
+                              <!--password-->
+                              <div class="col-md-2">
+                                <dt><label>Password</label></dt>
+                                <dd><input id="register-password-textbox_{{i}}" type="password" formControlName="password"></dd>
+                                <div class="help-block error password" *ngIf="registerForm.controls.members.controls[i].controls.password.touched && !registerForm.controls.members.controls[i].controls.password.valid">
+                                  <small *ngIf="registerForm.controls.members.controls[i].controls.password.errors.required" class="text-danger">Password is required</small>
+                                  <small *ngIf="registerForm.controls.members.controls[i].controls.password.errors.minlength" class="text-danger">Password has to be at least 8 characters</small>
+                                  <small *ngIf="registerForm.controls.members.controls[i].controls.password.errors.validatePassword" class="text-danger">Password requires 1 number, 1 uppercase, and 1 lowercase character</small>
+                                </div>
+                              </div>
+                              <!--confirm password-->
+                              <div class="col-md-2">
+                                <dt><label>Confirm Password</label></dt>
+                                <dd><input id="register-confirmpassword-textbox_{{i}}" type="password" formControlName="confirmpassword"></dd>
+                                <div class="help-block error confirmpassword" *ngIf="registerForm.controls.members.controls[i].controls.confirmpassword.touched && !registerForm.controls.members.controls[i].controls.confirmpassword.valid">
+                                  <small *ngIf="registerForm.controls.members.controls[i].controls.confirmpassword.errors.required" class="text-danger">Confirmation Password is required</small>
+                                  <small *ngIf="registerForm.controls.members.controls[i].controls.confirmpassword.errors.minlength" class="text-danger">Confirmation Password is incorrect</small>
+                                </div>
+                              </div>
+                              <!--confirm password-->
+                              <div class="col-md-2">
+                                  <dt><label>Household Administrator</label></dt>
+                                  <dd><input id="register-isadministrator-checkbox_{{i}}" type="checkbox" formControlName="isAdmin" (change)='handleChange($event);'></dd>
+                              </div>
+                              <div class="alert alert-danger" *ngIf="registerForm.controls.members.controls[i].controls.confirmpassword.value != registerForm.controls.members.controls[i].controls.password.value && registerForm.controls.members.controls[i].controls.confirmpassword.value != '' && registerForm.controls.members.controls[i].controls.confirmpassword.touched">Password not match</div>
+              </div>
+              
+            </div>
+          </div>      
+              <div class="margin-20">
+                <a (click)="addNewMember()" style="cursor: default">
+                  Add new member +
+                </a>
+              </div>
+          <div class="margin-20">
+            <button type="submit" class="btn btn-primary pull-right" [disabled]="!registerForm.valid">Register</button>
+          </div>
+          <div class="clearfix"></div>
+        
+          <div *ngIf="errorMessage">
+            <span class="alert alert-danger">{{errorMessage}}</span>
+          </div>
+          <div *ngIf="successMessage">
+            <span class="help-block success">{{successMessage}}</span>
+          </div>
+    
+        </form>
+  <div class="row">
+    <a [routerLink]="['../login']">Login</a>
   </div>
 </div>
+</div>
+
+<div class="clearfix"></div>
+
+        <div class="margin-20">
+          <div>myForm details:-</div>
+          <pre>Is myForm valid?: <br>{{registerForm.valid | json}}</pre>
+          <pre>form value: <br>{{registerForm.value | json}}</pre>
+        </div>

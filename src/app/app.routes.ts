@@ -5,13 +5,13 @@ import { About } from './about/about';
 import { Home } from './home/home';
 import { Register } from './register/register';
 import { Login } from './login/login';
-import { UserList } from './admin/user-list/user-list';
+import { TasksList } from './tasks/tasks-list/tasks-list';
 
 export const ROUTES: Routes = [
   { path: '',      component: Home },
   { path: 'home',  component: Home },
   { path: 'register', component: Register },
   { path: 'login', component: Login },
-  { path: 'admin/userlist', component: UserList, canActivate: [AuthGuard] },
+  { path: 'tasks/taskslist', component: TasksList, canActivate: [AuthGuard] },
   { path: '**',    component: Home }
 ];

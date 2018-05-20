@@ -6,7 +6,8 @@ import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'rg-login',
-  templateUrl: './login.html'
+  templateUrl: './login.html',
+  styleUrls: ['../../assets/css/form.css']
 })
 export class Login {
   public errorMessage = '';
@@ -27,10 +28,11 @@ export class Login {
   login() {
     this.authService.login(this.form.value)
         .subscribe(data => {
+          console.log(data);
           if (data) {
             this.errorMessage = '';
             this.successMessage = 'Login successful';
-            this.router.navigate(['admin/userlist']);
+            this.router.navigate(['tasks/taskslist']);
           } else {
             this.errorMessage = 'Error';
             this.successMessage = '';

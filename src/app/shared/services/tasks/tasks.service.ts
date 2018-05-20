@@ -6,9 +6,8 @@ import 'rxjs/add/observable/throw';
 
 import * as AppConstants from '../../constants';
 
-
 @Injectable()
-export class RegistrationService {
+export class TasksService {
   private apiHeaders = new Headers({
     'Content-Type': 'application/json'
   });
@@ -17,10 +16,10 @@ export class RegistrationService {
 
   }
 
-  registerUser(user) {
-    const registerUrl = AppConstants.apiUrl + 'register';
-    console.log(JSON.stringify(user));
-    return this.http.post(registerUrl, JSON.stringify(user), { headers: this.apiHeaders })
+  getTasks(household) {
+    const tasksUrl = AppConstants.apiUrl + 'tasks/household/' + household;
+
+    return this.http.get(tasksUrl)
       .map(res => res.json())
       .catch(this.handleError);
   }
@@ -30,5 +29,4 @@ export class RegistrationService {
 
     return Observable.throw(error.json().message || 'Server error');
   }
-
 }

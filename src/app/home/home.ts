@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Login } from '../login/login';
-import { UserList } from '../admin/user-list/user-list';
+import { TasksList } from '../tasks/tasks-list/tasks-list';
 import { AuthService } from '../shared/auth/auth.service';
 
 @Component({

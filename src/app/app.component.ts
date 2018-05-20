@@ -14,8 +14,8 @@ import { AuthService } from './shared/auth/auth.service';
 export class App {
   title = 'Cleaning App';
 
+  //constructor(private authService: AuthService, private router: Router) {
   constructor(private authService: AuthService, private router: Router) {
-
   }
 
   navigateToLogin() {

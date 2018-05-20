@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
-
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { RegistrationService } from '../shared/services/registration/registration.service';
 import { RegistrationValidator } from '../shared/validation/registrationvalidator';
+import { PasswordValidation } from '../shared/validation/passwordvalidation';
 import { Login } from '../login/login';
 
 @Component({
+  moduleId: module.id,
   selector: 'rg-register',
   template: require('./register.html')
 })
@@ -13,69 +14,42 @@ export class Register {
   public errorMessage = '';
   public successMessage = '';
 
-  private registerForm: FormGroup;
-  private email = new FormControl(
-    '',
-    Validators.compose([
-      Validators.required,
-      Validators.minLength(5)
-    ])
-  );
+  registerForm: FormGroup;
+  public admincount = 0;
   private householdname = new FormControl(
     '',
     Validators.compose([
       Validators.required,
       Validators.minLength(5)
     ])
-  );
-  private firstname = new FormControl(
-    '',
-    Validators.compose([
-      Validators.required
-    ])
-  );
-  private lastname = new FormControl(
-    '',
-    Validators.compose([
-      Validators.required
-    ])
-  );
-  private password = new FormControl('',
-    Validators.compose([
-      Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(50),
-      RegistrationValidator.validatePassword
-    ])
-  );
-  private confirmpassword = new FormControl('',
-  Validators.compose([
-    Validators.required,
-    Validators.minLength(8),
-    Validators.maxLength(50),
-    RegistrationValidator.validatePassword
-  ])
 );
+
   constructor(private registrationService: RegistrationService, private formBuilder: FormBuilder) {
-    //this.createForm();
   }
 
   ngOnInit() {
     console.log('hello `Register` component');
     this.registerForm = this.formBuilder.group({
-      householdname: this.householdname,
+      householdname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       members: this.formBuilder.array([this.initMembers()]) // here
     });
-    //this.addNewMember();
   }
 
   register() {
+    console.log('SUBMIT');
+    console.log(this.admincount);
+
+    if (this.admincount <= 0) {
+      this.errorMessage = 'Please insert at least one administrator';
+      this.successMessage = '';
+      return;
+    }
+
     this.registrationService.registerUser(this.registerForm.value)
         .subscribe(data => {
           if (data) {
             this.errorMessage = '';
             this.successMessage = 'Account successfully created';
-            //this.createForm();
           } else {
             this.errorMessage = 'Error';
             this.successMessage = '';
@@ -86,38 +60,47 @@ export class Register {
         });
   }
 
-/*  createForm() {
-    this.registerForm = this.formBuilder.group({
-      email:  this.email,
-      firstname: this.firstname,
-      lastname: this.lastname,
-      password: this.password,
-      confirmpassword: this.confirmpassword
-    });
-  }*/
-
+  handleChange(event) {
+    console.log('ONCHANGE');
+    if (event.target.checked === true) {
+      this.admincount++;
+      console.log('++');
+    }else {
+      this.admincount--;
+      console.log('--');
+   }
+   console.log('ONCHANGE');
+   console.log(this.admincount);
+  }
   initMembers() {
+
     return this.formBuilder.group({
         // list all your form controls here, which belongs to your form array
-        email:  this.email,
-        firstname: this.firstname,
-        lastname: this.lastname,
-        password: this.password,
-        confirmpassword: this.confirmpassword
+        email: ['', [Validators.required, Validators.minLength(5)]],
+        firstname: ['', Validators.required],
+        lastname: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(5),
+          Validators.maxLength(50), RegistrationValidator.validatePassword]],
+        confirmpassword: ['', [Validators.required, Validators.minLength(5),
+          Validators.maxLength(50), RegistrationValidator.validatePassword]],
+        isAdmin: [false, null]
+    },
+    {
+      validator: PasswordValidation.MatchPassword // your validation method
     });
-}
+  }
+
   addNewMember() {
     // control refers to your formarray
-    const control = <FormArray>this.registerForm.controls['members'];
+    const control = <FormArray>this.registerForm.get('members');
     // add new formgroup
     control.push(this.initMembers());
 }
 
-deleteMember(index: number) {
-    console.log('Add new member');
+  deleteMember(index: number) {
     // control refers to your formarray
-    const control = <FormArray>this.registerForm.controls['members'];
+    const control = <FormArray>this.registerForm.get('members');
     // remove the chosen row
     control.removeAt(index);
-}
+  }
 }

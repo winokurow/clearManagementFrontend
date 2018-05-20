@@ -1,4 +1,4 @@
-<h2>User List</h2>
+<h2>Tasks List</h2>
 <div class="row">
   <div class="col-xs-12">
     <div class="table-responsive">
@@ -6,19 +6,16 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Username</th>
+            <th>Task</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{user.id}}</td>
-            <td>{{user.username}}</td>
+          <tr *ngFor="let task of tasks">
+            <td>{{task.id}}</td>
+            <td>{{task.username}}</td>
           </tr>
         </tbody>
       </table>
-      <div *ngIf="noUsersMessage">
-        <span class="help-block error">{{noUsersMessage}}</span>
-      </div>
       <div *ngIf="errorMessage">
         <span class="help-block error">{{errorMessage}}</span>
       </div>
