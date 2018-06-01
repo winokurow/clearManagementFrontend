@@ -4,14 +4,13 @@ import { Router } from '@angular/router';
 import { AuthService } from './shared/auth/auth.service';
 
 @Component({
-  selector: 'app',
-  encapsulation: ViewEncapsulation.None,
+  selector: 'app-root',
   styleUrls: [
     './app.style.css'
   ],
-  templateUrl: './app.html'
+  templateUrl: './app.component.html'
 })
-export class App {
+export class AppComponent {
   title = 'Cleaning App';
 
   //constructor(private authService: AuthService, private router: Router) {
@@ -24,6 +23,5 @@ export class App {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['login']);
   }
 }

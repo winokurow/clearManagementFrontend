@@ -1,2 +1,2 @@
-<rg-login *ngIf="!authService.isLoggedIn()"></rg-login>
-<rg-tasks-list *ngIf="authService.isLoggedIn()"></rg-tasks-list>
+<rg-login *ngIf="!authService.checkCredentials()"></rg-login>
+<rg-tasks-list *ngIf="authService.checkCredentials()"></rg-tasks-list>

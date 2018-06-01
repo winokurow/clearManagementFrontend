@@ -6,8 +6,7 @@ import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'rg-login',
-  templateUrl: './login.html',
-  styleUrls: ['../../assets/css/form.css']
+  templateUrl: './login.html'
 })
 export class Login {
   public errorMessage = '';
@@ -26,7 +25,7 @@ export class Login {
   }
 
   login() {
-    this.authService.login(this.form.value)
+    this.authService.obtainAccessToken(this.form.value)
         .subscribe(data => {
           console.log(data);
           if (data) {

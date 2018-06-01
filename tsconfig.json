@@ -7,11 +7,8 @@
       "experimentalDecorators": true,
       "allowSyntheticDefaultImports": true,
       "sourceMap": true,
-      "noEmitHelpers": true,
       "strictNullChecks": false,
-      "baseUrl": "./src",
-      "paths": [
-      ],
+      "baseUrl": "./",
       "lib": [
         "dom",
         "es6"

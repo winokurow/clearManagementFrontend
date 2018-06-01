@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from './shared/auth/auth.guard';
-import { About } from './about/about';
 import { Home } from './home/home';
 import { Register } from './register/register';
 import { Login } from './login/login';

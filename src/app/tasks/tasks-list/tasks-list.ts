@@ -20,16 +20,21 @@ export class TasksList {
   }
 
   getTasks() {
-    this.tasksService.getTasks(1)
+    this.tasksService.getTasks()
         .subscribe(data => {
           if (data.length) {
             this.tasks = data;
+            console.log(this.tasks);
           } else {
             this.noUsersMessage = 'No tasks found';
           }
         }, error => {
           this.errorMessage = error;
         });
+  }
+
+  submitTask(id: number) {
+    console.info(id);
   }
 
 }
