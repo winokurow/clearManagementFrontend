@@ -4,6 +4,7 @@ import { RegistrationService } from '../shared/services/registration/registratio
 import { RegistrationValidator } from '../shared/validation/registrationvalidator';
 import { PasswordValidation } from '../shared/validation/passwordvalidation';
 import { Login } from '../login/login';
+import { Message } from 'src/app/shared/types/message';
 
 @Component({
   moduleId: module.id,
@@ -45,15 +46,10 @@ export class Register {
       return;
     }
 
-    this.registrationService.registerUser(this.registerForm.value)
+    this.registrationService.registerHousehold<any>(this.registerForm.value)
         .subscribe(data => {
-          if (data) {
             this.errorMessage = '';
             this.successMessage = 'Account successfully created';
-          } else {
-            this.errorMessage = 'Error';
-            this.successMessage = '';
-          }
         }, error => {
           this.errorMessage = error;
           this.successMessage = '';
@@ -65,7 +61,7 @@ export class Register {
     if (event.target.checked === true) {
       this.admincount++;
       console.log('++');
-    }else {
+    } else {
       this.admincount--;
       console.log('--');
    }

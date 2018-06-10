@@ -1,12 +1,7 @@
 import { Component, Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import * as AppConstants from '../../constants';
-import { IfObservable } from 'rxjs/observable/IfObservable';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Injectable()
 export class TasksService {
@@ -14,26 +9,24 @@ export class TasksService {
     'Content-Type': 'application/json'
   });
 
-  constructor(private _http: Http) {
+  constructor(private _http: HttpClient) {
 
   }
 
 
   getTasks() {
     const tasksUrl = AppConstants.apiUrl + 'tasks';
-
-    let headers = new Headers({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-    'Authorization': 'Bearer ' + Cookie.get('access_token')});
-    let options = new RequestOptions({ headers: headers });
-
-    return this._http.get(tasksUrl, options)
-      .map(res => res.json())
-      .catch(this.handleError);
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+    return this._http.get<Task[]>(tasksUrl, {headers: headers});
   }
 
-  handleError(error) {
-    console.error(error);
+  submitTask(id) {
+    const tasksUrl = AppConstants.apiUrl + 'task/' + id;
 
-    return Observable.throw(error.json().message || 'Server error');
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+
+    return this._http.post<Task>(tasksUrl, '', {headers: headers});
   }
 }

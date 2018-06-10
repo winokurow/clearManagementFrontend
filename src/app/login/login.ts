@@ -17,6 +17,7 @@ export class Login {
   private password = new FormControl('', Validators.required);
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
+    authService.deleteTokens();
     this.createForm();
   }
 

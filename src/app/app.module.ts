@@ -16,6 +16,8 @@ import { ROUTES } from './app.routes';
 import { RouterModule } from '@angular/router';
 import { UsersService } from './shared/services/users/users.service';
 import { Home } from 'src/app/home/home';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { RequestInterceptorService } from 'src/app/shared/services/request-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,14 @@ import { Home } from 'src/app/home/home';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
   ],
-  providers: [AuthService, RegistrationService, TasksService, UsersService, AuthGuard],
+  providers: [AuthService, RegistrationService, TasksService, UsersService, AuthGuard, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: RequestInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

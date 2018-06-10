@@ -15,13 +15,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let task of tasks">
-            <td>{{task.task.group}}</td>
-            <td>{{task.task.name}}</td>
-            <td>{{task.task.description}}</td>
-            <td>{{task.task.priority}}</td>
-            <td>{{task.task.complexity}}</td>
-            <td><button class="btn mat-icon-button" type="button" (click)="submitTask(task.task.id)"><img src="/assets/img/submit.png" height="30"/></button></td>
+          <tr *ngFor="let task of tasks; let i=index">
+            <td>{{task.groupname}}</td>
+            <td>{{task.name}}</td>
+            <td>{{task.description}}</td>
+            <td>{{task.priority}}</td>
+            <td>{{task.complexity}}</td>
+            <td><button class="btn mat-icon-button" type="button" (click)="submitTask(i)"><img src="/assets/img/submit.png" height="30"/></button></td>
           </tr>
         </tbody>
       </table>

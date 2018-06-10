@@ -22,7 +22,7 @@ export class TasksList {
   getTasks() {
     this.tasksService.getTasks()
         .subscribe(data => {
-          if (data.length) {
+          if (data != null) {
             this.tasks = data;
             console.log(this.tasks);
           } else {
@@ -34,7 +34,13 @@ export class TasksList {
   }
 
   submitTask(id: number) {
-    console.info(id);
+    this.tasksService.submitTask(this.tasks[id].id)
+    .subscribe(data => {
+      console.log('task: ' + data.name);
+      this.tasks.splice(id, 1);
+    }, error => {
+      this.errorMessage = error;
+    });
   }
 
 }

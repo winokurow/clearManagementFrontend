@@ -47,7 +47,6 @@ export class AuthService {
 
         if (res) {
           console.log(res);
-          
           this.saveToken(res);
         }
         return res;
@@ -57,7 +56,10 @@ export class AuthService {
 
   saveToken(token) {
     const expireDate = new Date().getTime() + (1000 * token.expires_in);
+    Cookie.delete('access_token');
+    Cookie.delete('refresh_token');
     Cookie.set('access_token', token.access_token, expireDate);
+    Cookie.set('refresh_token', token.refresh_token, expireDate);
     console.log('Obtained Access token');
     //this._router.navigate(['/']);
   }
@@ -67,9 +69,41 @@ export class AuthService {
     return Cookie.check('access_token');
   }
 
-  logout() {
-    Cookie.delete('access_token');
-   this._router.navigate(['/login']);
+  getAuthToken() {
+    return Cookie.get('access_token');
   }
+  getRefreshToken() {
+    return Cookie.get('refresh_token');
+  }
+  logout() {
+    this.deleteTokens();
+    this._router.navigate(['/login']);
+  }
+  deleteTokens() {
+    Cookie.delete('access_token');
+    Cookie.delete('access_token');
+  }
+  refreshToken(): Observable<string> {
+    /*
+        The call that goes in here will use the existing refresh token to call
+        a method on the oAuth server (usually called refreshToken) to get a new
+        authorization token for the API calls.
+    */
+    let refreshAuth = this.getAuthToken();
+    const headers = new Headers({'refreshAuthorization': refreshAuth});
+    const options = new RequestOptions({ headers: headers });
+
+    return this._http.post('http://localhost:8080/oauth/refresh', '', options)
+      .map(res => res.json()).map(res => {
+
+        if (res) {
+          console.log(res);
+          this.saveToken(res);
+        }
+        return res;
+      })
+    .catch(this.handleError);
+  }
+
 }
 

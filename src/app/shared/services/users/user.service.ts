@@ -5,15 +5,24 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 
 import * as AppConstants from '../../constants';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UsersService {
+
   private apiHeaders = new Headers({
     'Content-Type': 'application/json'
   });
 
-  constructor(private http: Http) {
+  constructor(private _http: HttpClient) {
 
+  }
+
+  getUserInfo() {
+    const tasksUrl = AppConstants.apiUrl + '/identity/userinfo';
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+    return this._http.get<any>(tasksUrl, {headers: headers});
   }
 
   getUsers() {
