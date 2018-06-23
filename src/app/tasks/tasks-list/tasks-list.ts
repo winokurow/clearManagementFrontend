@@ -20,7 +20,7 @@ export class TasksList {
   }
 
   getTasks() {
-    this.tasksService.getTasks()
+    this.tasksService.getTasks(true)
         .subscribe(data => {
           if (data != null) {
             this.tasks = data;

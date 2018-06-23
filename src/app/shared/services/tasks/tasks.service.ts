@@ -1,7 +1,8 @@
 import { Component, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import * as AppConstants from '../../constants';
+import { Task } from 'src/app/shared/types/task.model';
 
 @Injectable()
 export class TasksService {
@@ -14,19 +15,47 @@ export class TasksService {
   }
 
 
-  getTasks() {
+  getTasks(showOnlyCurrent: boolean) {
     const tasksUrl = AppConstants.apiUrl + 'tasks';
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
-    return this._http.get<Task[]>(tasksUrl, {headers: headers});
+    let params = new HttpParams().set('show_only_current', String(showOnlyCurrent));
+    return this._http.get<Task[]>(tasksUrl, {headers: headers, params: params});
   }
 
   submitTask(id) {
-    const tasksUrl = AppConstants.apiUrl + 'task/' + id;
+    const tasksUrl = AppConstants.apiUrl + 'tasks/task/' + id + '/submit';
 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
 
     return this._http.post<Task>(tasksUrl, '', {headers: headers});
+  }
+
+  upadateTask(id, task) {
+    const tasksUrl = AppConstants.apiUrl + 'tasks/task/' + id + '/change';
+
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+
+    return this._http.post<Task>(tasksUrl, task, {headers: headers});
+  }
+
+  insertTask(task) {
+    const tasksUrl = AppConstants.apiUrl + 'tasks/task/create';
+
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+
+    return this._http.put<Task>(tasksUrl, task, {headers: headers});
+  }
+
+  deleteTask(id) {
+    const tasksUrl = AppConstants.apiUrl + 'tasks/task/' + id + '/delete';
+
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+
+    return this._http.delete(tasksUrl, {headers: headers});
   }
 }

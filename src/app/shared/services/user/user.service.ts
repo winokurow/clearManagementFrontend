@@ -6,9 +6,11 @@ import 'rxjs/add/observable/throw';
 
 import * as AppConstants from '../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Cookie } from 'ng2-cookies';
+import { Role } from 'src/app/shared/types/role.model';
 
 @Injectable()
-export class UsersService {
+export class UserService {
 
   private apiHeaders = new Headers({
     'Content-Type': 'application/json'
@@ -18,6 +20,25 @@ export class UsersService {
 
   }
 
+  isAdmin() {
+     if (Cookie.check('is_admin')) {
+      return Cookie.get('is_admin');
+    } else {
+      this.getUserInfo().subscribe((data: Role[]) => {
+       let admin = data.filter(x => x.name === 'ROLE_ADMIN');
+       console.log(String(admin.length === 1));
+       Cookie.set('is_admin', String(admin.length === 1));
+       return Cookie.get('is_admin');
+
+    }, error => {
+
+      }
+      );
+    }
+    
+    //this._router.navigate(['/']);
+  }
+
   getUserInfo() {
     const tasksUrl = AppConstants.apiUrl + '/identity/userinfo';
     let headers = new HttpHeaders();
@@ -25,17 +46,5 @@ export class UsersService {
     return this._http.get<any>(tasksUrl, {headers: headers});
   }
 
-  getUsers() {
-    const usersUrl = AppConstants.apiUrl + 'users';
 
-    return this.http.get(usersUrl)
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-  handleError(error) {
-    console.error(error);
-
-    return Observable.throw(error.json().message || 'Server error');
-  }
 }

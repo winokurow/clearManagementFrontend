@@ -1,0 +1,162 @@
+<h2>Task List</h2>
+<alert></alert>
+<form [formGroup]="tasksForm" novalidate (ngSubmit)="submitForm()">
+  <!-- household name -->
+  <div class="form-group">
+      <div formArrayName="tasks">
+              <div class="col-xs-12">
+                <div class="table-responsive">
+                  <table *ngIf="tasks" class="table table-stdiped table-bordered " style="width: 100%;table-layout: fixed;">
+                    <colgroup>
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 30%;">
+                        <col span="1" style="width: 10%;">
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 5%;">
+                        <col span="1" style="width: 5%;">
+                        <col span="1" style="width: 5%;">
+                     </colgroup>
+
+                    <thead>
+                      <tr>
+                        <th>Group</th>
+                        <th>Name</th>
+                        <th>Description</th> 
+                        <th>Shedule</th> 
+                        <th>Next run</th> 
+                        <th>Priority</th>
+                        <th>Complexity</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+          <tr *ngFor="let task of tasksForm.controls.tasks.controls; let i=index" class="panel panel-default">
+              <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+              <ng-container formGroupName="{{i}}">
+                  <td style="width: 15%;">
+                      <input type="text" formControlName="groupname">
+                      <div class="help-block error groupname" *ngIf="tasksForm.controls.tasks.controls[i].controls.groupname.touched && !tasksForm.controls.tasks.controls[i].controls.groupname.valid">
+                        <small *ngIf="tasksForm.controls.tasks.controls[i].controls.groupname.errors.required" class="text-danger">Groupname is required</small>
+                      </div>
+                  </td>
+                
+                  <td style="width: 15%;">
+                      <input type="text" formControlName="name">
+                      <div class="help-block error name" *ngIf="tasksForm.controls.tasks.controls[i].controls.name.touched && !tasksForm.controls.tasks.controls[i].controls.name.valid">
+                        <small *ngIf="tasksForm.controls.tasks.controls[i].controls.name.errors.required" class="text-danger">Name is required</small>
+                      </div>
+                  </td>
+                  
+                  <td style="width: 30%;">
+                      <input type="text" formControlName="description">
+                  </td>
+
+                  <td style="width: 10%;">
+                      <input type="text" formControlName="shedule">
+                      <div class="help-block error shedule" *ngIf="tasksForm.controls.tasks.controls[i].controls.shedule.touched && !tasksForm.controls.tasks.controls[i].controls.shedule.valid">
+                        <small *ngIf="tasksForm.controls.tasks.controls[i].controls.shedule.errors.required" class="text-danger">Shedule is required</small>
+                      </div>
+                  </td>
+
+                  <td style="width: 20%;">
+                      <input type="text" formControlName="nextRun">
+                      <div class="help-block error nextRun" *ngIf="tasksForm.controls.tasks.controls[i].controls.nextRun.touched && !tasksForm.controls.tasks.controls[i].controls.nextRun.valid">
+                        <small *ngIf="tasksForm.controls.tasks.controls[i].controls.nextRun.errors.required" class="text-danger">Next Run is required</small>
+                      </div>
+                  </td>
+
+                  <td style="width: 5%;">
+                      <input type="text" formControlName="priority">
+                      <div class="help-block error priority" *ngIf="tasksForm.controls.tasks.controls[i].controls.priority.touched && !tasksForm.controls.tasks.controls[i].controls.priority.valid">
+                        <small *ngIf="tasksForm.controls.tasks.controls[i].controls.priority.errors.required" class="text-danger">Priority is required</small>
+                      </div>
+                  </td>
+
+                  <td style="width: 5%;">
+                      <input type="text" formControlName="complexity">
+                      <div class="help-block error complexity" *ngIf="tasksForm.controls.tasks.controls[i].controls.complexity.touched && !tasksForm.controls.tasks.controls[i].controls.complexity.valid">
+                        <small *ngIf="tasksForm.controls.tasks.controls[i].controls.complexity.errors.required" class="text-danger">Complexity is required</small>
+                      </div>
+                  </td>
+                  <td>
+                    <button (click)="deleteRow(i)" class="btn btn-danger">X</button>
+                  </td>
+              </ng-container>
+          </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+      </div>
+  </div>
+</form>
+
+<div>
+<form [formGroup]="newTaskForm" novalidate (ngSubmit)="insertTask()">
+<div class="panel panel-default">    
+  <div class="panel-heading">
+        <span>New Task</span>
+    </div>
+<div class="panel-body">
+  <div class="form-group col-md-2">
+      <label>Group</label>
+      <input formControlName="groupname" id="newTask-groupname-textbox" type="text" class="form-control">
+      <div class="help-block error groupname" *ngIf="newTaskForm.controls.groupname.touched && !newTaskForm.controls.groupname.valid">
+        <small *ngIf="newTaskForm.controls.groupname.errors.required" class="text-danger">Group is required</small>
+      </div>
+  </div>
+  <div class="form-group col-md-2">
+      <label>Name</label>
+      <input formControlName="name" id="newTask-name-textbox" type="text" class="form-control">
+      <div class="help-block error name" *ngIf="newTaskForm.controls.name.touched && !newTaskForm.controls.name.valid">
+        <small *ngIf="newTaskForm.controls.name.errors.required" class="text-danger">Name is required</small>
+      </div>
+  </div>
+  <div class="form-group col-md-2">
+      <label>Description</label>
+      <input formControlName="description" id="newTask-description-textbox" type="text" class="form-control">
+  </div>
+  <div class="form-group col-md-2">
+      <label>Shedule</label>
+      <input formControlName="shedule" id="newTask-shedule-textbox" type="text" class="form-control">
+      <div class="help-block error shedule" *ngIf="newTaskForm.controls.shedule.touched && !newTaskForm.controls.shedule.valid">
+        <small *ngIf="newTaskForm.controls.shedule.errors.required" class="text-danger">Shedule is required</small>
+      </div>
+  </div>
+  <div class="form-grou col-md-2">
+      <label>Next run</label>
+      <input formControlName="nextRun" id="newTask-nextRun-textbox" type="text" class="form-control">
+      <div class="help-block error nextRun" *ngIf="newTaskForm.controls.nextRun.touched && !newTaskForm.controls.nextRun.valid">
+        <small *ngIf="newTaskForm.controls.nextRun.errors.required" class="text-danger">Next Run is required</small>
+      </div>
+  </div>
+  <div class="form-group col-md-1">
+      <label>Priority</label>
+      <input formControlName="priority" id="newTask-priority-textbox" type="text" class="form-control">
+      <div class="help-block error priority" *ngIf="newTaskForm.controls.priority.touched && !newTaskForm.controls.priority.valid">
+        <small *ngIf="newTaskForm.controls.priority.errors.required" class="text-danger">Priority is required</small>
+      </div>
+  </div>
+  <div class="form-group col-md-1">
+      <label>Complexity</label>
+      <input formControlName="complexity" id="newTask-complexity-textbox" type="text" class="form-control">
+      <div class="help-block error complexity" *ngIf="newTaskForm.controls.complexity.touched && !newTaskForm.controls.complexity.valid">
+        <small *ngIf="newTaskForm.controls.complexity.errors.required" class="text-danger">Complexity is required</small>
+      </div>
+  </div>
+<div class="margin-20">
+  <button type="submit" class="btn btn-primary pull-right" [disabled]="!newTaskForm.valid">Add new task</button>
+</div>
+<div class="clearfix"></div>
+
+<div *ngIf="errorMessage">
+  <span class="alert alert-danger">{{errorMessage}}</span>
+</div>
+<div *ngIf="successMessage">
+  <span class="help-block success">{{successMessage}}</span>
+</div>
+</div>
+</div>
+</form>
+</div>

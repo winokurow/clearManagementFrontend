@@ -12,14 +12,14 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li>
-          <a [routerLink]="['./home']" [routerLinkActive]="['active-link']">Home</a>
+        <li *ngIf="authService.checkCredentials()">
+          <a [routerLink]="['./tasks/taskslist']" [routerLinkActive]="['active-link']">Task List</a>
+        </li>
+        <li *ngIf="authService.checkCredentials() && userService.isAdmin()">
+          <a [routerLink]="['./tasks/administration']" [routerLinkActive]="['active-link']">Change Tasks</a>
         </li>
         <li>
           <a [routerLink]="['./about']" [routerLinkActive]="['active-link']">About</a>
-        </li>
-        <li *ngIf="authService.checkCredentials()">
-          <a [routerLink]="['./tasks/taskslist']" [routerLinkActive]="['active-link']">Task List</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

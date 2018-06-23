@@ -14,18 +14,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, XSRFStrategy, CookieXSRFStrategy } from '@angular/http';
 import { ROUTES } from './app.routes';
 import { RouterModule } from '@angular/router';
-import { UsersService } from './shared/services/users/users.service';
 import { Home } from 'src/app/home/home';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RequestInterceptorService } from 'src/app/shared/services/request-interceptor.service';
-
+import { UserService } from 'src/app/shared/services/user/user.service';
+import { TasksAdministration } from 'src/app/tasks/administration/tasks-administration';
+import { ConfirmationDialog } from './shared/delete-task-confirm-dialog/confirmation-dialog';
+import { MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertService } from 'src/app/shared/alert/alert.service';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
 @NgModule({
   declarations: [
     AppComponent,
     Home,
     Register,
     Login,
-    TasksList
+    TasksList,
+    AlertComponent,
+    TasksAdministration
   ],
   imports: [
     BrowserModule,
@@ -33,9 +40,11 @@ import { RequestInterceptorService } from 'src/app/shared/services/request-inter
     ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
   ],
-  providers: [AuthService, RegistrationService, TasksService, UsersService, AuthGuard, {
+  providers: [AuthService, RegistrationService, TasksService, AlertService, UserService, AuthGuard, {
     provide: HTTP_INTERCEPTORS,
     useClass: RequestInterceptorService,
     multi: true

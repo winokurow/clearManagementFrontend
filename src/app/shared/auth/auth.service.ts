@@ -80,8 +80,7 @@ export class AuthService {
     this._router.navigate(['/login']);
   }
   deleteTokens() {
-    Cookie.delete('access_token');
-    Cookie.delete('access_token');
+    Cookie.deleteAll();
   }
   refreshToken(): Observable<string> {
     /*

@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from './shared/auth/auth.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
   title = 'Cleaning App';
 
   //constructor(private authService: AuthService, private router: Router) {
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private userService: UserService, private router: Router) {
   }
 
   navigateToLogin() {
