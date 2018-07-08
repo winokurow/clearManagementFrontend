@@ -10,7 +10,7 @@ import { Subject } from 'rxjs/Subject';
      }
      setConfirmation(message: string,siFn:()=>void,noFn:()=>void) {
        let that = this;
-       this.subject.next({ type: "confirm",
+       this.subject.next({ type: 'confirm',
                    text: message,
                    siFn:
                    function(){

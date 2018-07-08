@@ -41,6 +41,7 @@ export class RequestInterceptorService implements HttpInterceptor {
                         default:
                             console.log('ERROR');
                             console.log(error);
+                            return this.handle400Error(error);
                     }
                 } else {
                     return Observable.throw(error);

@@ -3,17 +3,25 @@
     <h2 class="registration-header">Login</h2>
     <form (ngSubmit)="login()" [formGroup]="form">
       <input id="login-email-textbox" type="text" class="form-control" placeholder="Email" [formControl]="email" required>
+      <div class="help-block error email" *ngIf="email.touched && !email.valid">
+        <small *ngIf="email.errors.required" class="text-danger">Email is required</small>
+      </div>
+      &nbsp;
       <input id="login-password-textbox" type="password" class="form-control" placeholder="Password" [formControl]="password" required>
+      <div class="help-block error password" *ngIf="password.touched && !password.valid">
+        <small *ngIf="password.errors.required" class="text-danger">Password is required</small>
+      </div>
+      &nbsp;
       <div *ngIf="errorMessage">
-        <span class="help-block error">{{errorMessage}}</span>
+        <span class="help-block error" style="color:red">{{errorMessage}}</span>
       </div>
       <div *ngIf="successMessage">
         <span class="help-block success">{{successMessage}}</span>
       </div>
+      &nbsp;
       <button id="login-submit" type="submit" class="go-btn btn btn-lg btn-success btn-block">Login</button>
     </form>
-    <div class="row">
-      <a (click)=navigateToRegister()>Register</a>
-    </div>    
+    &nbsp;
+      <button id="login-register" type="submit" class="go-btn btn btn-lg btn-success btn-block" (click)=navigateToRegister()>Register</button>
   </div>
 </div>

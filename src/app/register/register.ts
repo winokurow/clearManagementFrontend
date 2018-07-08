@@ -5,6 +5,7 @@ import { RegistrationValidator } from '../shared/validation/registrationvalidato
 import { PasswordValidation } from '../shared/validation/passwordvalidation';
 import { Login } from '../login/login';
 import { Message } from 'src/app/shared/types/message';
+import { Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -25,7 +26,8 @@ export class Register {
     ])
 );
 
-  constructor(private registrationService: RegistrationService, private formBuilder: FormBuilder) {
+  constructor(private registrationService: RegistrationService,
+    private formBuilder: FormBuilder, private router: Router) {
   }
 
   ngOnInit() {
@@ -46,12 +48,16 @@ export class Register {
       return;
     }
 
-    this.registrationService.registerHousehold<any>(this.registerForm.value)
+    this.registrationService.registerHousehold(this.registerForm.value)
         .subscribe(data => {
             this.errorMessage = '';
             this.successMessage = 'Account successfully created';
+            this.router.navigate(['login']);
         }, error => {
-          this.errorMessage = error;
+          let errMsg: Message = error.error;
+          console.log('test');
+          console.log(errMsg.message);
+          this.errorMessage = errMsg.message;
           this.successMessage = '';
         });
   }

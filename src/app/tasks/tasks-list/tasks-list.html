@@ -16,12 +16,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let task of tasks; let i=index">
-            <td>{{task.groupname}}</td>
-            <td>{{task.name}}</td>
-            <td>{{task.description}}</td>
-            <td>{{task.priority}}</td>
-            <td>{{task.complexity}}</td>
-            <td><button class="btn mat-icon-button" type="button" (click)="submitTask(i)"><img src="/assets/img/submit.png" height="30"/></button></td>
+            <td data-label="Group">{{task.groupname}}</td>
+            <td data-label="Name">{{task.name}}</td>
+            <td data-label="Description">{{task.description}}</td>
+            <td data-label="Priority">{{task.priority}}</td>
+            <td data-label="Complexity">{{task.complexity}}</td>
+            <td data-label="Group"><button class="btn mat-icon-button" type="button" (click)="submitTask(i)"><img src="/assets/img/submit.png" height="30"/></button></td>
           </tr>
         </tbody>
       </table>

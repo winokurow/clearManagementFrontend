@@ -19,8 +19,10 @@ export class RegistrationService {
 
   }
 
-  registerHousehold<T>(user: any) {
+  registerHousehold(user: any) {
     const registerUrl = AppConstants.apiUrl + 'register';
-    return this.http.put<T>(registerUrl, JSON.stringify(user), { headers: this.apiHeaders });
+    console.log('stringify');
+    console.log(JSON.stringify(user));
+    return this.http.put(registerUrl, JSON.stringify(user), { headers: this.apiHeaders });
   }
 }

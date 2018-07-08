@@ -32,7 +32,7 @@ export class TasksService {
     return this._http.post<Task>(tasksUrl, '', {headers: headers});
   }
 
-  upadateTask(id, task) {
+  updateTask(id, task) {
     const tasksUrl = AppConstants.apiUrl + 'tasks/task/' + id + '/change';
 
     let headers = new HttpHeaders();

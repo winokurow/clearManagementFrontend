@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/auth/auth.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
+import { Message } from '../shared/types/message';
 
 @Component({
   selector: 'rg-login',
@@ -41,7 +42,9 @@ export class Login {
             this.successMessage = '';
           }
         }, error => {
-          this.errorMessage = error;
+          let errMsg = error;
+          console.log(errMsg);
+          this.errorMessage = errMsg;
           this.successMessage = '';
         });
   }

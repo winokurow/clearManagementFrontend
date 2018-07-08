@@ -1,3 +1,10 @@
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+owl-date-time-calendar {
+  position: relative;
+  top: 50px;
+}
+
 button {
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -12,3 +19,73 @@ td input {
     max-width: 100%;
     width: 100%;
 }
+
+html
+{
+    font-size: 100%;
+}
+
+.navbar-nav > li >a{
+    color:white;
+    font-size:18px;
+    margin-left: 10px;
+  }
+
+  /* some basic table styles */
+
+table {
+    width: 100%;
+  }
+  
+  thead {
+    border-bottom: 1px solid #000;
+  }
+  
+  thead th {
+    text-align: left;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #eee;
+  }
+  
+  th, td {
+    padding: 2px;
+  }
+  
+  /* responsive! */
+  
+  @media screen and (max-width: 600px) {
+    
+    thead {
+      display: none;
+    }
+    
+    table, tbody, tr, td {
+      display: block;
+    }
+    
+    td{
+        padding-left: 50%;
+        position: relative;
+      }
+      
+      td:before {
+        box-sizing: border-box;
+        content: attr(data-label);
+        top: 0;
+        left: 0;
+        padding: 2px;
+        font-weight: bold;
+        
+      }
+
+    td > input{
+      width: 50%;
+      position: relative;
+      float: right;
+    }
+    
+
+    
+  }

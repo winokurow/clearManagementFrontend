@@ -27,9 +27,8 @@ export class AuthService {
   }
 
   handleError(error) {
-    console.error(error);
-
-    return Observable.throw(error.json().message || 'Server error');
+    console.log(error.json().error_description);
+    return Observable.throw(error.json().error_description || 'Server error');
   }
 
   obtainAccessToken(user) {

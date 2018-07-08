@@ -7,7 +7,7 @@
   <form [formGroup]="registerForm" novalidate (ngSubmit)="register()">
             <!-- household name -->
             <div class="form-group">
-                <label>Name</label>
+                <label>Household name</label>
                 <input formControlName="householdname" id="register-householdname-textbox" type="text" class="form-control">
         
                 <div class="help-block error householdname" *ngIf="registerForm.controls.householdname.touched && !registerForm.controls.householdname.valid">
@@ -77,34 +77,25 @@
               
             </div>
           </div>      
-              <div class="margin-20">
+          <div class="margin-20">
                 <a (click)="addNewMember()" style="cursor: default">
                   Add new member +
                 </a>
               </div>
+              <div *ngIf="errorMessage">
+                  <span class="alert alert-danger">{{errorMessage}}</span>
+                </div>
+                <div *ngIf="successMessage">
+                  <span class="help-block success">{{successMessage}}</span>
+                </div>
           <div class="margin-20">
             <button type="submit" class="btn btn-primary pull-right" [disabled]="!registerForm.valid">Register</button>
           </div>
+
           <div class="clearfix"></div>
-        
-          <div *ngIf="errorMessage">
-            <span class="alert alert-danger">{{errorMessage}}</span>
-          </div>
-          <div *ngIf="successMessage">
-            <span class="help-block success">{{successMessage}}</span>
-          </div>
-    
         </form>
   <div class="row">
-    <a [routerLink]="['../login']">Login</a>
+      <a [routerLink]="['../login']">Back to Login</a>
   </div>
 </div>
 </div>
-
-<div class="clearfix"></div>
-
-        <div class="margin-20">
-          <div>myForm details:-</div>
-          <pre>Is myForm valid?: <br>{{registerForm.valid | json}}</pre>
-          <pre>form value: <br>{{registerForm.value | json}}</pre>
-        </div>

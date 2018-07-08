@@ -24,6 +24,8 @@ import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertService } from 'src/app/shared/alert/alert.service';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,13 +44,15 @@ import { AlertComponent } from 'src/app/shared/alert/alert.component';
     HttpClientModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
   ],
   providers: [AuthService, RegistrationService, TasksService, AlertService, UserService, AuthGuard, {
     provide: HTTP_INTERCEPTORS,
     useClass: RequestInterceptorService,
-    multi: true
-  }],
+    multi: true,
+  },  {provide: OWL_DATE_TIME_LOCALE, useValue: 'ru'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

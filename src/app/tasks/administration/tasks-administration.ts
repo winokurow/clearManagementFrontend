@@ -17,7 +17,10 @@ export class TasksAdministration {
   public successMessage = '';
   tasksForm: FormGroup;
   newTaskForm: FormGroup;
-  constructor(private tasksService: TasksService, private formBuilder: FormBuilder, 
+
+  periodPattern = '([-+]?)P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?';
+
+ constructor(private tasksService: TasksService, private formBuilder: FormBuilder,
     private alertService: AlertService) {
 
   }
@@ -50,10 +53,15 @@ export class TasksAdministration {
                 group.valueChanges.subscribe(val => {
                   console.log('Update');
                   let task = val as Task;
-                  console.log('val=' + task);
-                  this.tasksService.upadateTask(val.id, val).subscribe(data1 => {
+                  this.errorMessage = '';
+                  console.log('val=' + task.nextRun);
+                  let next: Date = new Date(task.nextRun);
+                  task.nextRun = next.toISOString();
+                  this.tasksService.updateTask(task.id, task).subscribe(data1 => {
                   }, error => {
-                    this.errorMessage = error;
+                    let errMsg = error;
+                    console.log(errMsg);
+                    this.errorMessage = errMsg.error.message;
                   });
                 });
                 return group;
@@ -62,8 +70,10 @@ export class TasksAdministration {
           } else {
             this.noUsersMessage = 'No tasks found';
           }
-        }, error => {
-          this.errorMessage = error;
+        }, error1 => {
+          let errMsg = error1;
+          console.log(errMsg);
+          this.errorMessage = errMsg;
         });
   }
 
@@ -74,7 +84,7 @@ export class TasksAdministration {
         groupname: [task.groupname || '', [Validators.required]],
         description: [task.description || '', []],
         name: [task.name || '', [Validators.required]],
-        shedule: [task.shedule || '', [Validators.required]],
+        shedule: [task.shedule || '', [Validators.required, Validators.pattern(this.periodPattern)]],
         nextRun: [task.nextRun || '', [Validators.required]],
         priority: [task.priority || '', [Validators.required]],
         complexity: [task.complexity || '', [Validators.required]]

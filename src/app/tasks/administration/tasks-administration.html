@@ -4,10 +4,8 @@
   <!-- household name -->
   <div class="form-group">
       <div formArrayName="tasks">
-              <div class="col-xs-12">
-                <div class="table-responsive">
-                  <table *ngIf="tasks" class="table table-stdiped table-bordered " style="width: 100%;table-layout: fixed;">
-                    <colgroup>
+                  <table *ngIf="tasks" class="table table-stdiped table-bordered" style="width: 100%;table-layout: fixed;">
+                      <colgroup>
                         <col span="1" style="width: 15%;">
                         <col span="1" style="width: 15%;">
                         <col span="1" style="width: 30%;">
@@ -16,8 +14,7 @@
                         <col span="1" style="width: 5%;">
                         <col span="1" style="width: 5%;">
                         <col span="1" style="width: 5%;">
-                     </colgroup>
-
+                      </colgroup>
                     <thead>
                       <tr>
                         <th>Group</th>
@@ -25,7 +22,7 @@
                         <th>Description</th> 
                         <th>Shedule</th> 
                         <th>Next run</th> 
-                        <th>Priority</th>
+                        <th>Prio</th>
                         <th>Complexity</th>
                         <th></th>
                       </tr>
@@ -34,47 +31,49 @@
           <tr *ngFor="let task of tasksForm.controls.tasks.controls; let i=index" class="panel panel-default">
               <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
               <ng-container formGroupName="{{i}}">
-                  <td style="width: 15%;">
-                      <input type="text" formControlName="groupname">
+                  <td data-label="Group">
+                      <input type="text" formControlName="groupname" size="12">
                       <div class="help-block error groupname" *ngIf="tasksForm.controls.tasks.controls[i].controls.groupname.touched && !tasksForm.controls.tasks.controls[i].controls.groupname.valid">
                         <small *ngIf="tasksForm.controls.tasks.controls[i].controls.groupname.errors.required" class="text-danger">Groupname is required</small>
                       </div>
                   </td>
                 
-                  <td style="width: 15%;">
-                      <input type="text" formControlName="name">
+                  <td data-label="Name">
+                      <input type="text" formControlName="name" size="12">
                       <div class="help-block error name" *ngIf="tasksForm.controls.tasks.controls[i].controls.name.touched && !tasksForm.controls.tasks.controls[i].controls.name.valid">
                         <small *ngIf="tasksForm.controls.tasks.controls[i].controls.name.errors.required" class="text-danger">Name is required</small>
                       </div>
                   </td>
                   
-                  <td style="width: 30%;">
-                      <input type="text" formControlName="description">
+                  <td data-label="Description">
+                      <input type="text" formControlName="description" size="30">
                   </td>
 
-                  <td style="width: 10%;">
-                      <input type="text" formControlName="shedule">
+                  <td data-label="Shedule">
+                      <input type="text" formControlName="shedule" size="10">
                       <div class="help-block error shedule" *ngIf="tasksForm.controls.tasks.controls[i].controls.shedule.touched && !tasksForm.controls.tasks.controls[i].controls.shedule.valid">
                         <small *ngIf="tasksForm.controls.tasks.controls[i].controls.shedule.errors.required" class="text-danger">Shedule is required</small>
+                        <small *ngIf="tasksForm.controls.tasks.controls[i].controls.shedule.errors.pattern" class="text-danger">Shedule format is incorrect. Correct format is P3Y2M2W3D</small>
                       </div>
                   </td>
 
-                  <td style="width: 20%;">
-                      <input type="text" formControlName="nextRun">
+                  <td data-label="Next Run">
+                      <input formControlName="nextRun" size="15" [owlDateTimeTrigger]="dtPicker2" [owlDateTime]="dtPicker2">
+                      <owl-date-time #dtPicker2></owl-date-time>
                       <div class="help-block error nextRun" *ngIf="tasksForm.controls.tasks.controls[i].controls.nextRun.touched && !tasksForm.controls.tasks.controls[i].controls.nextRun.valid">
                         <small *ngIf="tasksForm.controls.tasks.controls[i].controls.nextRun.errors.required" class="text-danger">Next Run is required</small>
                       </div>
                   </td>
 
-                  <td style="width: 5%;">
-                      <input type="text" formControlName="priority">
+                  <td data-label="Priority">
+                      <input type="text" formControlName="priority" size="2">
                       <div class="help-block error priority" *ngIf="tasksForm.controls.tasks.controls[i].controls.priority.touched && !tasksForm.controls.tasks.controls[i].controls.priority.valid">
                         <small *ngIf="tasksForm.controls.tasks.controls[i].controls.priority.errors.required" class="text-danger">Priority is required</small>
                       </div>
                   </td>
 
-                  <td style="width: 5%;">
-                      <input type="text" formControlName="complexity">
+                  <td data-label="Complexity">
+                      <input type="text" formControlName="complexity" size="2">
                       <div class="help-block error complexity" *ngIf="tasksForm.controls.tasks.controls[i].controls.complexity.touched && !tasksForm.controls.tasks.controls[i].controls.complexity.valid">
                         <small *ngIf="tasksForm.controls.tasks.controls[i].controls.complexity.errors.required" class="text-danger">Complexity is required</small>
                       </div>
@@ -86,8 +85,6 @@
           </tr>
                     </tbody>
                   </table>
-                </div>
-              </div>
       </div>
   </div>
 </form>
@@ -126,7 +123,8 @@
   </div>
   <div class="form-grou col-md-2">
       <label>Next run</label>
-      <input formControlName="nextRun" id="newTask-nextRun-textbox" type="text" class="form-control">
+      <input formControlName="nextRun" id="newTask-nextRun-textbox" class="form-control" [owlDateTimeTrigger]="dtPicker3" [owlDateTime]="dtPicker3">
+      <owl-date-time #dtPicker3></owl-date-time>
       <div class="help-block error nextRun" *ngIf="newTaskForm.controls.nextRun.touched && !newTaskForm.controls.nextRun.valid">
         <small *ngIf="newTaskForm.controls.nextRun.errors.required" class="text-danger">Next Run is required</small>
       </div>
@@ -145,17 +143,18 @@
         <small *ngIf="newTaskForm.controls.complexity.errors.required" class="text-danger">Complexity is required</small>
       </div>
   </div>
+  <div *ngIf="errorMessage">
+      <span class="alert alert-danger" style="color:red">{{errorMessage}}</span>
+    </div>
+    <div *ngIf="successMessage">
+      <span class="help-block success" style="color:green">{{successMessage}}</span>
+    </div>
 <div class="margin-20">
   <button type="submit" class="btn btn-primary pull-right" [disabled]="!newTaskForm.valid">Add new task</button>
 </div>
 <div class="clearfix"></div>
 
-<div *ngIf="errorMessage">
-  <span class="alert alert-danger">{{errorMessage}}</span>
-</div>
-<div *ngIf="successMessage">
-  <span class="help-block success">{{successMessage}}</span>
-</div>
+
 </div>
 </div>
 </form>
