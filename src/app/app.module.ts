@@ -25,6 +25,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertService } from 'src/app/shared/alert/alert.service';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+import { UserStatistic } from './user/statistic/user-statistic';
+import { HistoryService } from 'src/app/shared/services/history/history.service';
+import { HouseholdStatistic } from 'src/app/statistic/household/household-statistic';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from
     Login,
     TasksList,
     AlertComponent,
-    TasksAdministration
+    TasksAdministration,
+    UserStatistic,
+    HouseholdStatistic
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from
     OwlNativeDateTimeModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
   ],
-  providers: [AuthService, RegistrationService, TasksService, AlertService, UserService, AuthGuard, {
+  providers: [AuthService, RegistrationService, TasksService, AlertService,
+    UserService, HistoryService, AuthGuard, {
     provide: HTTP_INTERCEPTORS,
     useClass: RequestInterceptorService,
     multi: true,

@@ -37,7 +37,8 @@ export class TasksList {
             this.noUsersMessage = 'No tasks found';
           }
         }, error => {
-          this.errorMessage = error;
+          let errMsg: Message = error.error;
+          this.errorMessage = errMsg.message;
         });
   }
 
@@ -48,8 +49,6 @@ export class TasksList {
       this.tasks.splice(id, 1);
     }, error => {
       let errMsg: Message = error.error;
-      console.log('test');
-      console.log(errMsg.message);
       this.errorMessage = errMsg.message;
     });
   }

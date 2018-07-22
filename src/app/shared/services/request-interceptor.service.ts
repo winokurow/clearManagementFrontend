@@ -28,12 +28,11 @@ export class RequestInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
-        console.log('INTERCEPTOR');
 
         return next.handle(this.addToken(req, this.authService.getAuthToken()))
             .catch(error => {
                 if (error instanceof HttpErrorResponse) {
-                    switch ((<HttpErrorResponse>error).status) {
+                    switch (error.status) {
                         case 400:
                             return this.handle400Error(error);
                         case 401:

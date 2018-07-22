@@ -33,7 +33,7 @@ export class Login {
         .subscribe(data => {
           console.log(data);
           if (data) {
-            this.userService.isAdmin();
+            this.userService.setAdministrator();
             this.errorMessage = '';
             this.successMessage = 'Login successful';
             this.router.navigate(['tasks/taskslist']);

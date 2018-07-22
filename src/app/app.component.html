@@ -1,20 +1,26 @@
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <div class="navbar-inner">
-          <div class="container-fluid">
-    <a align="left" class="navbar-brand" href="#">{{title}}</a>   
-    <button type="button" class="navbar-toggler hidden-lg-up pull-left" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-      </button>
-    </div> 
-</div>
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a align="left" class="navbar-brand" href="#">{{title}}</a>   
+        <button type="button" class="navbar-toggler hidden-lg-up pull-left" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div> 
+      </div>
     <div class="navbar-collapse collapse" id="navbar-collapse">
       <ul class="navbar-nav mr-auto">
         <li *ngIf="authService.checkCredentials()">
           <a class="nav-item" [routerLink]="['./tasks/taskslist']" [routerLinkActive]="['active-link']">Task List</a>
         </li>
-        <li *ngIf="authService.checkCredentials() && userService.isAdmin()">
+        <li *ngIf="authService.checkCredentials() && userService.isAdmin">
           <a class="nav-item" [routerLink]="['./tasks/administration']" [routerLinkActive]="['active-link']">Change Tasks</a>
         </li>
+        <li *ngIf="authService.checkCredentials()">
+            <a class="nav-item" [routerLink]="['./user/statistic']" [routerLinkActive]="['active-link']">User statistic</a>
+          </li>
+          <li *ngIf="authService.checkCredentials() && userService.isAdmin">
+              <a class="nav-item" [routerLink]="['./household/statistic']" [routerLinkActive]="['active-link']">Household Statistic</a>
+            </li>
         <li>
           <a class="nav-item" [routerLink]="['./about']" [routerLinkActive]="['active-link']">About</a>
         </li>

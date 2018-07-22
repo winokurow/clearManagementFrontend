@@ -10,9 +10,11 @@ import * as AppConstants from '../constants';
 
 @Injectable()
 export class AuthService {
+
   private apiHeaders = new Headers({
     'Content-Type': 'application/json'
   });
+
   private loggedIn = false;
   private token = '';
   private user = {
@@ -47,6 +49,7 @@ export class AuthService {
         if (res) {
           console.log(res);
           this.saveToken(res);
+          console.log('Angemeldet');
         }
         return res;
       })
