@@ -5,7 +5,7 @@ import { TasksList } from '../tasks/tasks-list/tasks-list';
 import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
-  selector: 'rg-home',
+  selector: 'app-home',
   template: require('./home.html')
 })
 export class Home {

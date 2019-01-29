@@ -26,7 +26,7 @@
                       <div class="panel-body" [formGroupName]="i">
                           <div class="col-md-2">
                               <dt><label>Email</label></dt>
-                              <dd><input type="text" formControlName="email"></dd>
+                              <dd><input class="registration" type="text" formControlName="email"></dd>
                               <div class="help-block error email" *ngIf="registerForm.controls.members.controls[i].controls.email.touched && !registerForm.controls.members.controls[i].controls.email.valid">
                                 <small *ngIf="registerForm.controls.members.controls[i].controls.email.errors.required" class="text-danger">Email is required</small>
                                 <small *ngIf="registerForm.controls.members.controls[i].controls.email.errors.minlength" class="text-danger">Email has to be at least 5 characters</small>
@@ -35,7 +35,7 @@
                               <!--firstname-->
                               <div class="col-md-2">
                                 <dt><label>Firstname</label></dt>
-                                <dd><input id="register-firstname-textbox_{{i}}" type="text" formControlName="firstname"></dd>
+                                <dd><input  class="registration" id="register-firstname-textbox_{{i}}" type="text" formControlName="firstname"></dd>
                                 <div class="help-block error firstname" *ngIf="registerForm.controls.members.controls[i].controls.firstname.touched && !registerForm.controls.members.controls[i].controls.firstname.valid">
                                   <small *ngIf="registerForm.controls.members.controls[i].controls.firstname.errors.required" class="text-danger">Firstname is required</small>
                                 </div>
@@ -43,7 +43,7 @@
                               <!--lastname-->
                               <div class="col-md-2">
                                 <dt><label>Lastname</label></dt>
-                                <dd><input id="register-lastname-textbox_{{i}}" type="text" formControlName="lastname"></dd>
+                                <dd><input class="registration" id="register-lastname-textbox_{{i}}" type="text" formControlName="lastname"></dd>
                                 <div class="help-block error lastname" *ngIf="registerForm.controls.members.controls[i].controls.lastname.touched && !registerForm.controls.members.controls[i].controls.lastname.valid">
                                   <small *ngIf="registerForm.controls.members.controls[i].controls.lastname.errors.required" class="text-danger">Lastname is required</small>
                                 </div>
@@ -51,7 +51,7 @@
                               <!--password-->
                               <div class="col-md-2">
                                 <dt><label>Password</label></dt>
-                                <dd><input id="register-password-textbox_{{i}}" type="password" formControlName="password"></dd>
+                                <dd><input class="registration" id="register-password-textbox_{{i}}" type="password" formControlName="password"></dd>
                                 <div class="help-block error password" *ngIf="registerForm.controls.members.controls[i].controls.password.touched && !registerForm.controls.members.controls[i].controls.password.valid">
                                   <small *ngIf="registerForm.controls.members.controls[i].controls.password.errors.required" class="text-danger">Password is required</small>
                                   <small *ngIf="registerForm.controls.members.controls[i].controls.password.errors.minlength" class="text-danger">Password has to be at least 8 characters</small>
@@ -61,7 +61,7 @@
                               <!--confirm password-->
                               <div class="col-md-2">
                                 <dt><label>Confirm Password</label></dt>
-                                <dd><input id="register-confirmpassword-textbox_{{i}}" type="password" formControlName="confirmpassword"></dd>
+                                <dd><input class="registration" id="register-confirmpassword-textbox_{{i}}" type="password" formControlName="confirmpassword"></dd>
                                 <div class="help-block error confirmpassword" *ngIf="registerForm.controls.members.controls[i].controls.confirmpassword.touched && !registerForm.controls.members.controls[i].controls.confirmpassword.valid">
                                   <small *ngIf="registerForm.controls.members.controls[i].controls.confirmpassword.errors.required" class="text-danger">Confirmation Password is required</small>
                                   <small *ngIf="registerForm.controls.members.controls[i].controls.confirmpassword.errors.minlength" class="text-danger">Confirmation Password is incorrect</small>
@@ -69,8 +69,8 @@
                               </div>
                               <!--confirm password-->
                               <div class="col-md-2">
-                                  <dt><label>Household Administrator</label></dt>
-                                  <dd><input id="register-isadministrator-checkbox_{{i}}" type="checkbox" formControlName="isAdmin" (change)='handleChange($event);'></dd>
+                                  <dt><label>Administrator</label></dt>
+                                  <dd><input class="registration" id="register-isadministrator-checkbox_{{i}}" type="checkbox" formControlName="isAdmin" (change)='handleChange($event);'></dd>
                               </div>
                               <div class="alert alert-danger" *ngIf="registerForm.controls.members.controls[i].controls.confirmpassword.value != registerForm.controls.members.controls[i].controls.password.value && registerForm.controls.members.controls[i].controls.confirmpassword.value != '' && registerForm.controls.members.controls[i].controls.confirmpassword.touched">Password not match</div>
               </div>

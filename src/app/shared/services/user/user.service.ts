@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Cookie } from 'ng2-cookies';
 import { Role } from 'src/app/shared/types/role.model';
 
+
 @Injectable()
 export class UserService {
 

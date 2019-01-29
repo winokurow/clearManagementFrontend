@@ -14,8 +14,6 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 export class AppComponent {
   title = 'Cleaning App';
 
-  
-
   constructor(private authService: AuthService, private userService: UserService, private router: Router) {
   }
 

@@ -28,6 +28,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from
 import { UserStatistic } from './user/statistic/user-statistic';
 import { HistoryService } from 'src/app/shared/services/history/history.service';
 import { HouseholdStatistic } from 'src/app/statistic/household/household-statistic';
+import { AdminGuard } from 'src/app/shared/auth/admin.guard';
+import { Wizard } from 'src/app/wizard/wizard';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { HouseholdStatistic } from 'src/app/statistic/household/household-statis
     AlertComponent,
     TasksAdministration,
     UserStatistic,
-    HouseholdStatistic
+    HouseholdStatistic,
+    Wizard
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,7 @@ import { HouseholdStatistic } from 'src/app/statistic/household/household-statis
     RouterModule.forRoot(ROUTES, { useHash: true }),
   ],
   providers: [AuthService, RegistrationService, TasksService, AlertService,
-    UserService, HistoryService, AuthGuard, {
+    UserService, HistoryService, AuthGuard, AdminGuard, {
     provide: HTTP_INTERCEPTORS,
     useClass: RequestInterceptorService,
     multi: true,

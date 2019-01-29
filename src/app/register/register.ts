@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { RegistrationService } from '../shared/services/registration/registration.service';
 import { RegistrationValidator } from '../shared/validation/registrationvalidator';
@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 @Component({
   moduleId: module.id,
   selector: 'rg-register',
+  styleUrls: [
+    './register.style.css'
+  ],
   template: require('./register.html')
 })
 export class Register {

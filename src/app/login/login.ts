@@ -7,7 +7,7 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 import { Message } from '../shared/types/message';
 
 @Component({
-  selector: 'rg-login',
+  selector: 'app-login',
   templateUrl: './login.html'
 })
 export class Login {

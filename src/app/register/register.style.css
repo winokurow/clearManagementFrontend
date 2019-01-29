@@ -1,0 +1,15 @@
+
+label {
+
+  display: block;
+  text-align: center;
+}
+
+dd {
+  float: center;
+  text-align: center;
+}
+
+input {
+  width: 99%;
+}

@@ -8,4 +8,5 @@ export interface Task {
     nextRun: string;
     priority: number;
     complexity: number;
+    room: string;
   }

@@ -5,6 +5,7 @@ import { Task } from 'src/app/shared/types/task.model';
 import { ConfirmationDialog } from '../../shared/delete-task-confirm-dialog/confirmation-dialog';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 import { AlertService } from 'src/app/shared/alert/alert.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks-administration',
@@ -21,7 +22,7 @@ export class TasksAdministration {
   periodPattern = '([-+]?)P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?';
 
  constructor(private tasksService: TasksService, private formBuilder: FormBuilder,
-    private alertService: AlertService) {
+    private alertService: AlertService, private _router: Router) {
 
   }
 
@@ -45,7 +46,11 @@ export class TasksAdministration {
     this.tasksService.getTasks(false)
         .subscribe(data => {
           if (data != null) {
+            console.log(data);
             this.tasks = data;
+            if (this.tasks.length === 0) {
+              //this._router.navigate(['/tasks/wizard']);
+            }
             this.tasksForm = new FormGroup({
               tasks: new FormArray(this.tasks.map(item => {
                 const group = this.createTasks(item);
@@ -67,8 +72,6 @@ export class TasksAdministration {
                 return group;
               }))
             });
-          } else {
-            this.noUsersMessage = 'No tasks found';
           }
         }, error1 => {
           let errMsg = error1;

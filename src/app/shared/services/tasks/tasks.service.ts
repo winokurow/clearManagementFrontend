@@ -15,12 +15,28 @@ export class TasksService {
   }
 
 
-  getTasks(showOnlyCurrent: boolean) {
+  getTasks1(showOnlyCurrent: boolean) {
     const tasksUrl = AppConstants.apiUrl + 'tasks';
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
     let params = new HttpParams().set('show_only_current', String(showOnlyCurrent));
+    
     return this._http.get<Task[]>(tasksUrl, {headers: headers, params: params});
+  }
+
+  getTasks(showOnlyCurrent: boolean) {
+    const taskpatternsUrl = AppConstants.apiUrl + 'tasks';
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+    let params = new HttpParams().set('show_only_current', String(showOnlyCurrent));
+    return this._http.get<Task[]>(taskpatternsUrl, {headers: headers, params: params});
+  }
+
+  getTaskPatterns() {
+    const taskpatternsUrl = AppConstants.apiUrl + 'task_patterns';
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
+    return this._http.get<Task[]>(taskpatternsUrl, {headers: headers});
   }
 
   submitTask(id) {
