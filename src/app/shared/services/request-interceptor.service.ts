@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse,
-    HttpProgressEvent, HttpResponse, HttpUserEvent, HttpErrorResponse } from '@angular/common/http';
+    HttpProgressEvent, HttpResponse, HttpUserEvent, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/catch';
@@ -20,15 +20,23 @@ export class RequestInterceptorService implements HttpInterceptor {
     constructor(private authService: AuthService) {}
 
     addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
+
         if (this.authService.checkCredentials()) {
             return req.clone({ setHeaders: { Authorization: 'Bearer ' + token }});
         }
         return req;
     }
 
+
     intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
 
+        //const headers = new HttpHeaders({
+        //    'Access-Control-Allow-Origin': 'cleanManagerClient',
+        //  });
+        //const cloneReq = req.clone({headers});
+        //console.log('INTERCEPT');
+        //console.log(headers);
         return next.handle(this.addToken(req, this.authService.getAuthToken()))
             .catch(error => {
                 if (error instanceof HttpErrorResponse) {

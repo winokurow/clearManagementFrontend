@@ -42,8 +42,8 @@ export class AuthService {
     const headers = new Headers({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
     'Authorization': 'Basic ' + btoa('clientapp:123456')});
     const options = new RequestOptions({ headers: headers });
-
-    return this._http.post('http://localhost:8080/oauth/token', params.toString(), options)
+    const registerUrl = AppConstants.apiUrl + 'oauth/token';
+    return this._http.post(registerUrl, params.toString(), options)
       .map(res => res.json()).map(res => {
 
         if (res) {
