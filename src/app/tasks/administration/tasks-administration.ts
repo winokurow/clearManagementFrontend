@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks-administration',
-  template: require('./tasks-administration.html')
+  templateUrl: './tasks-administration.html'
 })
 export class TasksAdministration {
   tasks = [];

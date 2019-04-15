@@ -5,7 +5,7 @@ import { HistoryService } from 'src/app/shared/services/history/history.service'
 
 @Component({
   selector: 'app-household-statistic-selector',
-  template: require('./household-statistic.html')
+  templateUrl: './household-statistic.html'
 })
 export class HouseholdStatistic {
 

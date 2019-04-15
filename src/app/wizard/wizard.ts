@@ -4,7 +4,7 @@ import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 
 @Component({
   selector: 'app-wizard-selector',
-  template: require('./wizard.html')
+  templateUrl: './wizard.html'
 })
 export class Wizard {
   tasks = [];

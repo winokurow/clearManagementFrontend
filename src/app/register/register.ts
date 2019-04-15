@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: [
     './register.style.css'
   ],
-  template: require('./register.html')
+  templateUrl: './register.html'
 })
 export class Register {
   public errorMessage = '';

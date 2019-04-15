@@ -4,7 +4,7 @@ import { Message } from 'src/app/shared/types/message';
 
 @Component({
   selector: 'rg-tasks-list',
-  template: require('./tasks-list.html')
+  templateUrl: './tasks-list.html'
 })
 export class TasksList {
   tasks = [];
