@@ -6,7 +6,7 @@ import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'app-home',
-  template: require('./home.html')
+  templateUrl: './home.html'
 })
 export class Home {
   constructor(private authService: AuthService) {
