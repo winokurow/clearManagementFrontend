@@ -41,6 +41,10 @@ export class Register {
     });
   }
 
+  get members(): FormGroup {
+    return this.registerForm.controls.members as FormGroup;
+  }
+
   register() {
     console.log('SUBMIT');
     console.log(this.admincount);
