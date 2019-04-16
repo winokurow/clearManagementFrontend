@@ -16,7 +16,7 @@
                 </div>
               </div>
               <div formArrayName="members">
-                  <div *ngFor="let member of registerForm.controls.members.controls; let i=index" class="panel panel-default">
+                  <div *ngFor="let member of registerForm.controls.get('members').controls; let i=index" class="panel panel-default">
                       <div class="panel-heading">
                           <span>Member {{i + 1}}</span>
                           <span *ngIf="registerForm.get('members').controls.length > 1" (click)="deleteMember(i)" class="glyphicon glyphicon-remove pull-right">
