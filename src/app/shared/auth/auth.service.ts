@@ -42,8 +42,8 @@ export class AuthService {
     const headers = new Headers({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
     'Authorization': 'Basic ' + btoa('clientapp:123456')});
     const options = new RequestOptions({ headers: headers });
-    const registerUrl = AppConstants.apiUrl + 'oauth/token';
-    return this._http.post(registerUrl, params.toString(), options)
+    const loginUrl = 'https://cleaningmanager.herokuapp.com/oauth/token';
+    return this._http.post(loginUrl, params.toString(), options)
       .map(res => res.json()).map(res => {
 
         if (res) {
@@ -94,7 +94,7 @@ export class AuthService {
     const headers = new Headers({'refreshAuthorization': refreshAuth});
     const options = new RequestOptions({ headers: headers });
 
-    return this._http.post('http://localhost:8080/oauth/refresh', '', options)
+    return this._http.post('https://cleaningmanager.herokuapp.com/oauth/refresh', '', options)
       .map(res => res.json()).map(res => {
 
         if (res) {
