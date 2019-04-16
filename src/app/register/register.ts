@@ -19,7 +19,7 @@ export class Register {
   public errorMessage = '';
   public successMessage = '';
 
-  registerForm: FormGroup;
+  public registerForm: FormGroup;
   public admincount = 0;
   private householdname = new FormControl(
     '',

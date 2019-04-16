@@ -14,9 +14,9 @@ export class Login {
   public errorMessage = '';
   public successMessage = '';
 
-  private form: FormGroup;
-  private email = new FormControl('', Validators.required);
-  private password = new FormControl('', Validators.required);
+  public form: FormGroup;
+  public email = new FormControl('', Validators.required);
+  public password = new FormControl('', Validators.required);
 
   constructor(private authService: AuthService, private userService: UserService,
     private formBuilder: FormBuilder, private router: Router) {

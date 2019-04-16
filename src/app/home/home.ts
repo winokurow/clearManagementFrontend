@@ -9,7 +9,7 @@ import { AuthService } from '../shared/auth/auth.service';
   templateUrl: './home.html'
 })
 export class Home {
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
   }
 
   ngOnInit() {
