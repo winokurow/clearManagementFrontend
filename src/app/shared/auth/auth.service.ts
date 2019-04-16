@@ -44,7 +44,7 @@ export class AuthService {
     const options = new RequestOptions({ headers: headers });
     const loginUrl = 'https://cleaningmanager.herokuapp.com/oauth/token';
     return this._http.post(loginUrl, params.toString(), options)
-      .map(res => res.json()).map(res => {
+      .map(res => res.json()).map(res => { 
 
         if (res) {
           console.log(res);
