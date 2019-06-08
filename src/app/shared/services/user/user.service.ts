@@ -43,7 +43,7 @@ export class UserService {
   }
 
   getUserInfo() {
-    const tasksUrl = AppConstants.apiUrl + '/identity/userinfo';
+    const tasksUrl = AppConstants.apiUrl + 'identity/userinfo';
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
     console.log('get User Info');
