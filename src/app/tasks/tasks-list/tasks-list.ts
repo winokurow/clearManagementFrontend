@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Sort} from '@angular/material/sort';
 import { TasksService } from '../../shared/services/tasks/tasks.service';
 import { Message } from 'src/app/shared/types/message';
 
@@ -24,13 +25,7 @@ export class TasksList {
     this.tasksService.getTasks(true)
         .subscribe(data => {
           if (data != null) {
-            data.sort(function(a, b) {
-              if ( a.priority < b.priority )
-                  return -1;
-              if ( a.priority > b.priority )
-                  return 1;
-              return 0;
-          });
+            data.sort((a, b) => { return compare(a.priority, b.priority, true); });
             this.tasks = data;
             console.log(this.tasks);
           } else {
@@ -53,4 +48,27 @@ export class TasksList {
     });
   }
 
+  sortData(sort: Sort) {
+  const data = this.tasks.slice();
+  if (!sort.active || sort.direction === '') {
+    return;
+  }
+
+  this.tasks = data.sort((a, b) => {
+    const isAsc = sort.direction === 'asc';
+    switch (sort.active) {
+      case 'group': return compare(a.groupname, b.groupname, isAsc);
+      case 'name': return compare(a.name, b.name, isAsc);
+      case 'priority': return compare(a.priority, b.priority, isAsc);
+      case 'complexity': return compare(a.complexity, b.complexity, isAsc);
+      default: return 0;
+    }
+  });
+}
+
+}
+
+
+function compare(a: number | string, b: number | string, isAsc: boolean) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
