@@ -19,8 +19,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RequestInterceptorService } from 'src/app/shared/services/request-interceptor.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
 import { TasksAdministration } from 'src/app/tasks/administration/tasks-administration';
-import { ConfirmationDialog } from './shared/delete-task-confirm-dialog/confirmation-dialog';
-import { MatDialogModule, MatSortModule } from '@angular/material';
+import { MatDialogModule, MatSortModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertService } from 'src/app/shared/alert/alert.service';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
@@ -55,6 +54,10 @@ import { Wizard } from 'src/app/wizard/wizard';
     BrowserAnimationsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,        // <----- import(must)
+    MatNativeDateModule,        // <----- import for date formating(optional)
     RouterModule.forRoot(ROUTES, { useHash: true }),
   ],
   providers: [AuthService, RegistrationService, TasksService, AlertService,

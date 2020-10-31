@@ -172,3 +172,25 @@ form .inputGroup1.focusWithText .helper {
           transform: translate(1.4em, 2em) scale(0.65);
   opacity: 1;
 }
+
+input .filterInput {
+  display: block;
+  margin: 20px;
+  padding: 0 1em 0;
+  background-color: #f3fafd;
+  border: solid 2px #217093;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 90%;
+  height: 65px;
+  font-size: 1.55em;
+  color: #353538;
+  font-weight: 600;
+  font-family: inherit;
+  -webkit-transition: border-color .25s ease-out, -webkit-box-shadow .2s linear;
+  transition: border-color .25s ease-out, -webkit-box-shadow .2s linear;
+  transition: box-shadow .2s linear, border-color .25s ease-out;
+  transition: box-shadow .2s linear, border-color .25s ease-out, -webkit-box-shadow .2s linear;
+}
