@@ -30,7 +30,7 @@ export class UserStatistic {
 
   updateList() {
     console.log('hello `HistoryList` component');
-);
+
     this.getHistory();
   }
   getHistory() {
