@@ -94,5 +94,11 @@ table {
   }
 
 .filterInput {
-    margin: 20px;
+    margin: 5px;
   }
+
+.points {
+  font-size: 300%;
+  margin-left: 30px;
+  color: red;
+}

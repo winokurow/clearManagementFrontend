@@ -1,13 +1,15 @@
 <h2>Member Statistic</h2>
 
 <label for="fromDate">From:</label>
-<input [(ngModel)]="fromDate" size="15" [owlDateTimeTrigger]="fromPicker1" [owlDateTime]="fromPicker1" class="filterInput" (ngModelChange)="updateList()">
+<input [(ngModel)]="fromDate" size="7" [owlDateTimeTrigger]="fromPicker1" [owlDateTime]="fromPicker1" class="filterInput" (ngModelChange)="updateList()">
 <owl-date-time #fromPicker1 [pickerType]="'calendar'"></owl-date-time>
-
 <label for="toDate">To:</label>
-<input [(ngModel)]="toDate" size="15" [owlDateTimeTrigger]="toPicker1" [owlDateTime]="toPicker1" class="filterInput" (ngModelChange)="updateList()">
+<input [(ngModel)]="toDate" size="7" [owlDateTimeTrigger]="toPicker1" [owlDateTime]="toPicker1" class="filterInput" (ngModelChange)="updateList()">
 <owl-date-time #toPicker1 [pickerType]="'calendar'"></owl-date-time>
 
+<br>
+<b>Points:</b>
+<p class="points">{{points}}</p>
 <div class="row">
 
         <div class="col-xs-12">

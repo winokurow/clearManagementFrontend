@@ -17,6 +17,7 @@ export class UserStatistic {
   
   fromDate = new Date();
   toDate = new Date();
+  points;
 
   constructor(private historyService: HistoryService) {
 
@@ -40,6 +41,7 @@ export class UserStatistic {
         .subscribe(data => {
           if (data != null) {
             this.history = data;
+            this.getPoints();
             console.log(this.history);
           } else {
             this.noUsersMessage = 'No history found';
@@ -48,5 +50,9 @@ export class UserStatistic {
           let errMsg: Message = error.error;
           this.errorMessage = errMsg.message;
         });
+  }
+
+  getPoints() {
+    this.points = this.history.filter(item => item.action === 'SUBMIT').reduce((sum, current) => sum + current.complexity, 0);
   }
 }
