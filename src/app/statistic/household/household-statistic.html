@@ -11,7 +11,7 @@
 <b>Points:</b>
 <table>
   <tr>
-    <th *ngFor="let point of pointsMap | keyvalue">{{point.key}}
+    <td *ngFor="let point of pointsMap | keyvalue"><br>{{point.key}}</td>
   </tr>
   <tr>
     <td *ngFor="let point of pointsMap | keyvalue"><p class="points">{{point.value}}</p></td>
