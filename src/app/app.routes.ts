@@ -20,6 +20,6 @@ export const ROUTES: Routes = [
   { path: 'tasks/administration', component: TasksAdministration, canActivate: [AdminGuard] },
   { path: 'tasks/wizard', component: Wizard, canActivate: [AdminGuard] },
   { path: 'user/statistic', component: UserStatistic, canActivate: [AuthGuard] },
-  { path: 'household/statistic', component: HouseholdStatistic, canActivate: [AdminGuard] },
+  { path: 'household/statistic', component: HouseholdStatistic, canActivate: [AuthGuard] },
   { path: '**',    component: Home }
 ];
