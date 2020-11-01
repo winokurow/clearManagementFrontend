@@ -19,17 +19,16 @@ export class HistoryService {
     const historyUrl = AppConstants.apiUrl + 'member_history';
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
-    console.log(from.toISOString());
-    console.log(to.toISOString());
     let params = new HttpParams().set('dateFrom', from.toISOString()).set('dateTo', to.toISOString());
 
     return this._http.get<TaskHistory[]>(historyUrl, {headers: headers, params: params});
   }
 
-  getHouseholdHistory() {
+  getHouseholdHistory(from: Date, to: Date) {
     const historyUrl = AppConstants.apiUrl + 'household_history';
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
-    return this._http.get<TaskHistory[]>(historyUrl, {headers: headers});
+    let params = new HttpParams().set('dateFrom', from.toISOString()).set('dateTo', to.toISOString());
+    return this._http.get<TaskHistory[]>(historyUrl, {headers: headers, params: params});
   }
 }

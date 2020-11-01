@@ -13,6 +13,10 @@ export class HouseholdStatistic {
   noUsersMessage = '';
   errorMessage = '';
 
+  fromDate = new Date();
+  toDate = new Date();
+  pointsMap = new Map<string, number>();
+
   constructor(private historyService: HistoryService) {
 
   }
@@ -22,12 +26,19 @@ export class HouseholdStatistic {
     this.getHistory();
   }
 
+  updateList() {
+    this.getHistory();
+  }
+
   getHistory() {
-    this.historyService.getHouseholdHistory()
+    this.fromDate.setHours(0,0,0,0);
+    this.toDate.setHours(23,59,59,999);
+    this.historyService.getHouseholdHistory(this.fromDate, this.toDate)
         .subscribe(data => {
           if (data != null) {
             this.history = data;
             console.log(this.history);
+            this.getPoints();
           } else {
             this.noUsersMessage = 'No history found';
           }
@@ -35,4 +46,21 @@ export class HouseholdStatistic {
           this.errorMessage = error;
         });
   }
+
+  getPoints() {
+    for (let value of this.history) {
+      if (value.action === 'SUBMIT') {
+        if (!(this.pointsMap.has(value.member))) {
+          this.pointsMap.set(value.member, 0);
+          console.log(this.pointsMap);
+        }
+        let point = this.pointsMap.get(value.member) + value.complexity;
+        console.log(point);
+        this.pointsMap.set(value.member, point);
+      }
+
+    }
+  }
 }
+
+

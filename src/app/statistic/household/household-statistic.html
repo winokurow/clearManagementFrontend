@@ -1,5 +1,24 @@
 <h2>Household Statistic</h2>
 
+<label for="fromDate">From:</label>
+<input [(ngModel)]="fromDate" size="7" [owlDateTimeTrigger]="fromPicker1" [owlDateTime]="fromPicker1" class="filterInput" (ngModelChange)="updateList()">
+<owl-date-time #fromPicker1 [pickerType]="'calendar'"></owl-date-time>
+<label for="toDate">To:</label>
+<input [(ngModel)]="toDate" size="7" [owlDateTimeTrigger]="toPicker1" [owlDateTime]="toPicker1" class="filterInput" (ngModelChange)="updateList()">
+<owl-date-time #toPicker1 [pickerType]="'calendar'"></owl-date-time>
+
+<br>
+<b>Points:</b>
+<table>
+  <tr>
+    <th *ngFor="let point of pointsMap | keyvalue">{{point.key}}
+  </tr>
+  <tr>
+    <td *ngFor="let point of pointsMap | keyvalue"><p class="points">{{point.value}}</p></td>
+  </tr>
+</table>
+
+
 <div class="row">
         <div class="col-xs-12">
           <div class="table-responsive">
@@ -7,6 +26,7 @@
               <thead>
                 <tr>
                   <th>Task name</th>
+                  <th>Member</th>
                   <th>Action</th>
                   <th>Time</th> 
                   <th>Complexity</th>
@@ -15,6 +35,7 @@
               <tbody>
                 <tr *ngFor="let row of history; let i=index">
                   <td data-label="Task name">{{row.taskname}}</td>
+                  <td data-label="Member">{{row.member}}</td>
                   <td data-label="Action">{{row.action}}</td>
                   <td data-label="Time">{{row.timestamp}}</td>
                   <td data-label="Complexity">{{row.complexity}}</td>

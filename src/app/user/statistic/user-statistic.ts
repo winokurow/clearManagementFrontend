@@ -17,7 +17,7 @@ export class UserStatistic {
   
   fromDate = new Date();
   toDate = new Date();
-  points;
+  points = 0;
 
   constructor(private historyService: HistoryService) {
 
