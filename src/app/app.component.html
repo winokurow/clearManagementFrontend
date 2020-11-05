@@ -12,6 +12,9 @@
         <li *ngIf="authService.checkCredentials()">
           <a class="nav-item" [routerLink]="['./tasks/taskslist']" [routerLinkActive]="['active-link']">Task List</a>
         </li>
+        <li *ngIf="authService.checkCredentials()">
+          <a class="nav-item" [routerLink]="['./household/assigntasks']" [routerLinkActive]="['active-link']">Assign tasks</a>
+        </li>
         <li *ngIf="authService.checkCredentials() && userService.isAdmin">
           <a class="nav-item" [routerLink]="['./tasks/administration']" [routerLinkActive]="['active-link']">Change Tasks</a>
         </li>

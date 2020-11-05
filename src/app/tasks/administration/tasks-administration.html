@@ -144,11 +144,11 @@
       </div>
   </div>
   <div *ngIf="errorMessage">
-      <span class="alert alert-danger" style="color:red">{{errorMessage}}</span>
-    </div>
-    <div *ngIf="successMessage">
-      <span class="help-block success" style="color:green">{{successMessage}}</span>
-    </div>
+    <span class="alert alert-danger" style="color:red">{{errorMessage}}</span>
+  </div>
+  <div *ngIf="successMessage">
+    <span class="help-block success" style="color:green">{{successMessage}}</span>
+  </div>
 <div class="margin-20">
   <button type="submit" class="btn btn-primary pull-right" [disabled]="!newTaskForm.valid">Add new task</button>
 </div>
